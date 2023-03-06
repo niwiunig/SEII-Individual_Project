@@ -7,7 +7,7 @@
     tools:context=".MainActivity">
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/matrikelnummerTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Gib deine Matrikelnummer ein"
@@ -18,7 +18,7 @@
         app:layout_constraintVertical_bias="0.144" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/antwortVomServerTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Antwort vom Server"
@@ -51,13 +51,13 @@
         android:ems="10"
         android:hint="12345678"
         android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@+id/textView"
+        app:layout_constraintBottom_toTopOf="@+id/antwortVomServerTextView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+        app:layout_constraintTop_toBottomOf="@+id/matrikelnummerTextView" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/sendButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="140dp"
@@ -68,6 +68,18 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/antwortVomServerTextView" />
+
+    <Button
+        android:id="@+id/buttonEx2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="158dp"
+        android:layout_marginEnd="159dp"
+        android:layout_marginBottom="85dp"
+        android:text="ggT"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

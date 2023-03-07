@@ -19,23 +19,87 @@ public class MainActivity extends AppCompatActivity {
 
     private EditText matrikelnummerInput;
     private TextView responseView;
-
+    private TextView errorInputTextView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         matrikelnummerInput = findViewById(R.id.matrikelnummerInput);
-        Button button = findViewById(R.id.button);
+        Button sendButton = findViewById(R.id.sendButton);
         responseView = findViewById(R.id.responseView);
+        Button checkButton = findViewById(R.id.buttonEx2);
+        errorInputTextView = findViewById(R.id.errorInputTextView);
 
-        button.setOnClickListener(new View.OnClickListener() {
+        sendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String matrikelnummer = matrikelnummerInput.getText().toString();
-                new ConnectTask().execute(matrikelnummer);
+
+                if(isNumeric(matrikelnummer)) {
+                    errorInputTextView.setVisibility(View.GONE);
+                    new ConnectTask().execute(matrikelnummer);
+                }
+                else {
+                    errorInputTextView.setVisibility(View.VISIBLE);
+                }
             }
         });
+
+        checkButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String matrikelNummer = matrikelnummerInput.getText().toString();
+
+                if(isNumeric(matrikelNummer)) {
+                    errorInputTextView.setVisibility(View.GONE);
+                    checkNumbers(matrikelNummer);
+                } else {
+                    errorInputTextView.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+    }
+
+    private boolean isNumeric(String str) {
+        if (str == null || str.length() < 1) {
+            return false;
+        }
+
+        try{
+            Double d = Double.parseDouble(str);
+        } catch (NumberFormatException nfex){
+            return false;
+        }
+
+        return true;
+    }
+
+    private void checkNumbers(String matrikelnummer) {
+        int length = matrikelnummer.length();
+
+        //iterate over all integers of the matrikelnummer and check for common divisor > 1
+        for (int i = 0; i < length - 1; i++) {
+            for (int j = i + 1; j < length; j++) {
+                int num1 = Character.getNumericValue(matrikelnummer.charAt(i));
+                int num2 = Character.getNumericValue(matrikelnummer.charAt(j));
+                if (hasCommonFactor(num1, num2)) {
+                    responseView.setText("Nummern " + (i + 1) + " und " + (j + 1) + " haben einen gemeinsamen Teiler > 1");
+                    return;
+                }
+            }
+        }
+
+        responseView.setText("Kein Paar von Nummern gefunden die einen gemeinsamen Teiler > 1 vorweisen");
+    }
+
+    private boolean hasCommonFactor(int a, int b) {
+        for (int i = 2; i <= Math.min(a, b); i++) {
+            if (a % i == 0 && b % i == 0) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private class ConnectTask extends AsyncTask<String, Void, String> {

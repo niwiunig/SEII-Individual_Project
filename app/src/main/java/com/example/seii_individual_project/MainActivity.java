@@ -111,8 +111,10 @@ public class MainActivity extends AppCompatActivity {
                 String serverAddress = "se2-isys.aau.at";
                 int serverPort = 53212;
 
+                //Open a socket to the server
                 Socket socket = new Socket(serverAddress, serverPort);
 
+                //create a read and a write stream
                 PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
                 BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 
@@ -120,13 +122,15 @@ public class MainActivity extends AppCompatActivity {
 
                 out.println(params[0]);
 
+                //read response
                 while ((inputLine = in.readLine()) != null) {
                     response += inputLine;
                 }
+
+                //close streams and socket
                 out.close();
                 in.close();
                 socket.close();
-
             } catch (IOException e) {
                 e.printStackTrace();
             }
